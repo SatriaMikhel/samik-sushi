@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Samik Sushi - Authentic Japanese</title>
+    <title>Samik Sushi - Authentic Experience</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
         :root {
-            --primary: #A81B1B; /* Merah Lacquer Jepang */
+            --primary: #A81B1B; /* Merah Lacquer */
             --primary-dark: #7A1313;
             --bg: #F9F7F4; /* Kertas Beras */
             --surface: #FFFFFF;
@@ -29,66 +29,76 @@
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0c16.569 0 30 13.431 30 30 0 16.569-13.431 30-30 30C13.431 60 0 46.569 0 30 0 13.431 13.431 0 30 0zm0 5c13.807 0 25 11.193 25 25 0 13.807-11.193 25-25 25C16.193 55 5 43.807 5 30 5 16.193 16.193 5 30 5zm0 5c11.046 0 20 8.954 20 20 0 11.046-8.954 20-20 20-11.046 0-20-8.954-20-20 0-11.046 8.954-20 20-20zm0 5c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-8.284 0-15-6.716-15-15 0-8.284 6.716-15 15-15zm0 5c5.523 0 10 4.477 10 10 0 5.523-4.477 10-10 10-5.523 0-10-4.477-10-10 0-5.523 4.477-10 10-10z' fill='%23d4cdc3' fill-opacity='0.15' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
 
-        h1, h2, .m-title, .price { font-family: 'Noto Serif JP', serif; }
+        h1, h2, .m-title, .price, .splash-logo { font-family: 'Noto Serif JP', serif; }
 
+        /* --- SPLASH SCREEN (NOREN EFFECT) --- */
+        #splash-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--primary);
+            z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: white; 
+            transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1); /* Efek naik halus */
+        }
+        #splash-screen.hide { transform: translateY(-100%); }
+        .splash-logo { font-size: 2.5rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 5px; }
+        .splash-sub { font-size: 0.9rem; opacity: 0.9; letter-spacing: 4px; font-family: 'Inter'; text-transform: uppercase; }
+
+        /* --- HEADER --- */
         header {
-            background: var(--surface);
-            padding: 15px 20px;
+            background: var(--surface); padding: 15px 20px;
             position: sticky; top: 0; z-index: 90;
             display: flex; justify-content: space-between; align-items: center;
             border-bottom: 2px solid var(--primary);
             background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.258 10.892 8.077 12 0 12v2z' fill='%23A81B1B' fill-opacity='0.08' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
-
         .brand-col h1 { font-size: 1.3rem; font-weight: 900; color: var(--primary); display: flex; align-items: center; gap: 8px; }
         .jp-text { font-size: 1rem; opacity: 0.8; font-weight: normal; }
         .brand-col p { font-size: 0.75rem; color: var(--text-sec); font-weight: 500; }
-        
         .table-indicator {
             background: var(--surface); padding: 6px 12px; border-radius: 4px;
             font-size: 0.75rem; font-weight: 700; color: var(--indigo);
             border: 1px solid var(--indigo); box-shadow: 2px 2px 0 var(--indigo);
         }
 
+        /* --- HERO & CONTROLS --- */
         .hero-container { padding: 20px; }
         .hero {
-            height: 150px; border-radius: 16px;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1554735845-699394407016?q=80&w=500&auto=format&fit=crop');
+            height: 160px; border-radius: 16px;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?q=80&w=500&auto=format&fit=crop');
             background-size: cover; background-position: center;
             color: white; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;
-            box-shadow: 0 10px 30px rgba(168, 27, 27, 0.2); border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 10px 30px rgba(168, 27, 27, 0.25); border: 1px solid rgba(255,255,255,0.2);
         }
-        .hero h2 { font-size: 1.5rem; font-weight: 900; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .hero h2 { font-size: 1.6rem; font-weight: 900; text-shadow: 0 2px 10px rgba(0,0,0,0.5); line-height: 1.2; }
 
         .controls-sticky {
-            position: sticky; top: 64px; z-index: 89; background: var(--bg); padding: 5px 0 15px 0;
+            position: sticky; top: 65px; z-index: 89; background: var(--bg); padding: 5px 0 15px 0;
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0c16.569 0 30 13.431 30 30 0 16.569-13.431 30-30 30C13.431 60 0 46.569 0 30 0 13.431 13.431 0 30 0zm0 5c13.807 0 25 11.193 25 25 0 13.807-11.193 25-25 25C16.193 55 5 43.807 5 30 5 16.193 16.193 5 30 5zm0 5c11.046 0 20 8.954 20 20 0 11.046-8.954 20-20 20-11.046 0-20-8.954-20-20 0-11.046 8.954-20 20-20zm0 5c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-8.284 0-15-6.716-15-15 0-8.284 6.716-15 15-15zm0 5c5.523 0 10 4.477 10 10 0 5.523-4.477 10-10 10-5.523 0-10-4.477-10-10 0-5.523 4.477-10 10-10z' fill='%23d4cdc3' fill-opacity='0.15' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
-
         .search-box {
-            margin: 0 20px 15px 20px; background: var(--surface); border-radius: 8px;
+            margin: 0 20px 15px 20px; background: var(--surface); border-radius: 10px;
             padding: 12px 15px; display: flex; align-items: center; gap: 10px; border: 1px solid var(--border);
         }
-        .search-box input { border: none; outline: none; width: 100%; font-family: 'Inter'; }
+        .search-box input { border: none; outline: none; width: 100%; font-family: 'Inter'; background: transparent; }
 
-        .categories { padding: 0 20px; display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; }
+        .categories { padding: 0 20px; display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; }
         .categories::-webkit-scrollbar { display: none; }
-        
         .cat-pill {
-            padding: 10px 18px; background: var(--surface); border-radius: 50px;
+            padding: 10px 16px; background: var(--surface); border-radius: 50px;
             font-size: 0.9rem; font-weight: 600; color: var(--text-sec); white-space: nowrap; 
-            cursor: pointer; border: 2px solid var(--border); display: flex; align-items: center; gap: 8px; transition: 0.3s;
+            cursor: pointer; border: 1px solid var(--border); display: flex; align-items: center; gap: 8px; transition: 0.2s;
         }
-        .cat-pill.active { background: var(--indigo); color: white; border-color: var(--indigo); }
-        .cat-pill.active i { color: white; }
+        .cat-pill.active { background: var(--indigo); color: white; border-color: var(--indigo); box-shadow: 0 4px 10px rgba(44, 62, 80, 0.2); }
 
+        /* --- MENU LIST --- */
         .menu-list { padding: 0 20px 20px 20px; display: grid; gap: 20px; }
         .menu-card {
             background: var(--surface); border-radius: 16px; padding: 15px;
             display: flex; gap: 15px; position: relative;
             box-shadow: 4px 4px 0 var(--border); border: 1px solid var(--border);
         }
-        .menu-card.sold-out { opacity: 0.7; }
+        .menu-card.sold-out { opacity: 0.6; grayscale: 100%; pointer-events: none; }
         .thumb { width: 100px; height: 100px; border-radius: 12px; object-fit: cover; }
         .badge-sold {
             position: absolute; top: -8px; left: -8px; background: #333; color: white;
@@ -96,53 +106,55 @@
             z-index: 10; display: none; transform: rotate(-5deg); box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
         }
         .menu-card.sold-out .badge-sold { display: block; }
-        
         .info { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .m-title { font-weight: 900; font-size: 1.1rem; margin-bottom: 6px; color: var(--text-main); }
-        .m-desc { font-size: 0.8rem; color: var(--text-sec); line-height: 1.5; }
-        .m-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
-        .price { font-weight: 900; color: var(--primary); font-size: 1.1rem; }
-        
+        .m-title { font-weight: 900; font-size: 1.05rem; margin-bottom: 4px; color: var(--text-main); }
+        .m-desc { font-size: 0.8rem; color: var(--text-sec); line-height: 1.4; }
+        .m-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
         .add-btn {
-            width: 36px; height: 36px; border-radius: 8px; border: 2px solid var(--primary);
-            background: var(--surface); color: var(--primary); display: flex; align-items: center; justify-content: center;
-            font-size: 1.3rem; cursor: pointer; transition: 0.2s;
+            width: 36px; height: 36px; border-radius: 10px; background: var(--surface); 
+            color: var(--primary); border: 2px solid var(--primary); display: flex; 
+            align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer;
         }
-        .add-btn:active { background: var(--primary); color: white; }
+        .add-btn:active { background: var(--primary); color: white; transform: scale(0.95); }
 
+        /* --- NAV & MODAL --- */
         .bottom-nav {
             position: fixed; bottom: 0; width: 100%; background: var(--surface);
             padding: 15px 20px 25px 20px; border-radius: 24px 24px 0 0;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.05); z-index: 95;
+            box-shadow: 0 -5px 25px rgba(0,0,0,0.05); z-index: 95;
             display: flex; gap: 10px; border-top: 1px solid var(--border);
         }
         .btn-staff {
-            width: 54px; height: 54px; border-radius: 12px; background: var(--bg);
+            width: 54px; height: 54px; border-radius: 14px; background: var(--bg);
             color: var(--indigo); display: flex; align-items: center; justify-content: center;
-            font-size: 1.6rem; cursor: pointer; flex-shrink: 0; border: 2px solid var(--indigo);
+            font-size: 1.6rem; cursor: pointer; border: 2px solid var(--indigo);
         }
         .btn-cart {
             flex: 1; background: var(--primary); color: white;
-            border-radius: 12px; display: flex; justify-content: space-between; align-items: center;
+            border-radius: 14px; display: flex; justify-content: space-between; align-items: center;
             padding: 0 20px; cursor: pointer; font-weight: 700; border: 2px solid var(--primary);
-            box-shadow: 0 4px 15px rgba(168, 27, 27, 0.3);
+            box-shadow: 0 5px 15px rgba(168, 27, 27, 0.3); transition: 0.2s;
         }
-        .btn-cart.disabled { background: var(--text-sec); border-color: var(--text-sec); box-shadow: none; opacity: 0.8; pointer-events: none; }
+        .btn-cart.disabled { background: #ccc; border-color: #ccc; box-shadow: none; pointer-events: none; }
 
-        .sheet-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(44, 62, 80, 0.7); z-index: 100; opacity: 0; pointer-events: none; transition: 0.3s; backdrop-filter: blur(3px); }
+        .sheet-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(44, 62, 80, 0.8); z-index: 100; opacity: 0; pointer-events: none; transition: 0.3s; backdrop-filter: blur(4px); }
         .sheet-overlay.active { opacity: 1; pointer-events: all; }
-        .sheet-content { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg); border-radius: 24px 24px 0 0; padding: 25px; transform: translateY(100%); transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 101; max-height: 90vh; display: flex; flex-direction: column; }
+        .sheet-content { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg); border-radius: 24px 24px 0 0; padding: 25px; transform: translateY(100%); transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 101; max-height: 90vh; display: flex; flex-direction: column; }
         .sheet-content.active { transform: translateY(0); }
         
         .order-list { overflow-y: auto; margin: 20px 0; padding-right: 5px; }
-        .order-item { display: flex; justify-content: space-between; margin-bottom: 15px; align-items: flex-start; padding-bottom: 15px; border-bottom: 1px dashed var(--border); }
-        .qty-badge { background: var(--indigo); color: white; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.85rem; margin-right: 8px; }
-        .note-input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.85rem; margin-top: 10px; background: var(--surface); outline: none; font-family: 'Inter'; }
-        .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: var(--indigo); color: white; padding: 12px 24px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; z-index: 200; transition: 0.4s; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 8px; }
+        .order-item { display: flex; justify-content: space-between; margin-bottom: 15px; align-items: flex-start; padding-bottom: 15px; border-bottom: 1px dashed #ccc; }
+        .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: var(--indigo); color: white; padding: 12px 24px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; z-index: 200; transition: 0.4s; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 8px; }
         .toast.show { transform: translateX(-50%) translateY(0); }
     </style>
 </head>
 <body>
+    <div id="splash-screen">
+        <div class="splash-logo">SAMIK SUSHI</div>
+        <div class="splash-logo" style="font-size: 1.5rem;">サミック寿司</div>
+        <div class="splash-sub">AUTHENTIC JAPANESE</div>
+    </div>
+
     <div class="toast" id="toastMsg">
         <i class="ph-fill ph-check-circle" style="color: #4CAF50;"></i>
         <span id="toastText">Berhasil ditambahkan</span>
@@ -151,7 +163,7 @@
     <header>
         <div class="brand-col">
             <h1>SAMIK SUSHI <span class="jp-text">サミック寿司</span></h1>
-            <p>Authentic Japanese Taste</p>
+            <p>Jln. Merdeka No. 88</p>
         </div>
         <div class="table-indicator" id="tableIndicator">
             <i class="ph-bold ph-qr-code"></i> Scan QR
@@ -160,7 +172,7 @@
 
     <div class="hero-container">
         <div class="hero">
-            <h2>Experience True<br>Japanese Flavors</h2>
+            <h2>Authentic<br>Japanese Taste</h2>
             <p>Salmon Festival - Disc 20% All Items!</p>
         </div>
     </div>
@@ -168,7 +180,7 @@
     <div class="controls-sticky">
         <div class="search-box">
             <i class="ph-bold ph-magnifying-glass" style="color: var(--text-sec);"></i>
-            <input type="text" id="searchInput" placeholder="Cari menu lezat..." oninput="doSearch()">
+            <input type="text" id="searchInput" placeholder="Cari menu (misal: Salmon)..." oninput="doSearch()">
         </div>
 
         <div class="categories">
@@ -205,29 +217,29 @@
     <div class="sheet-overlay" id="overlay" onclick="closeCart()"></div>
     <div class="sheet-content" id="cartSheet">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <h2 style="font-size: 1.3rem; font-family: 'Noto Serif JP', serif;">Pesanan Anda</h2>
+            <h2 style="font-size: 1.3rem;">Pesanan Anda</h2>
             <i class="ph-bold ph-x" style="font-size: 1.5rem; cursor: pointer; color: var(--text-sec);" onclick="closeCart()"></i>
         </div>
         
         <div class="order-list" id="cartItemsRender"></div>
 
         <div>
-            <small style="font-weight: 700; margin-bottom: 5px; display: block; color: var(--indigo);">Catatan Khusus (Opsional)</small>
-            <textarea class="note-input" id="orderNote" rows="2" placeholder="Contoh: Wasabi dipisah, jangan pakai daun bawang..."></textarea>
+            <small style="font-weight: 700; margin-bottom: 5px; display: block; color: var(--indigo);">Catatan Dapur (Opsional)</small>
+            <textarea class="note-input" id="orderNote" rows="2" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;" placeholder="Contoh: Wasabi dipisah, jangan pakai daun bawang..."></textarea>
         </div>
 
         <div style="margin-top: 20px; border-top: 2px dashed var(--border); padding-top: 15px;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                <span style="color: var(--text-sec); font-weight: 500;">Subtotal</span>
-                <span id="summarySubtotal" style="font-weight: 600;">Rp 0</span>
+                <span style="color: var(--text-sec);">Subtotal</span>
+                <span id="summarySubtotal">Rp 0</span>
             </div>
             <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                <span style="color: var(--text-sec); font-weight: 500;">Tax & Service (15%)</span>
-                <span id="summaryTax" style="font-weight: 600;">Rp 0</span>
+                <span style="color: var(--text-sec);">Tax & Service (15%)</span>
+                <span id="summaryTax">Rp 0</span>
             </div>
             <div style="display: flex; justify-content: space-between; font-weight: 900; font-size: 1.2rem; margin-top: 10px; color: var(--primary);">
-                <span style="font-family: 'Noto Serif JP', serif;">Total Bayar</span>
-                <span id="summaryTotal" style="font-family: 'Noto Serif JP', serif;">Rp 0</span>
+                <span>Total Bayar</span>
+                <span id="summaryTotal">Rp 0</span>
             </div>
         </div>
 
@@ -248,9 +260,15 @@
         let cart = {};
         let currentTable = null;
 
+        // INIT: Load Data & Splash Screen
         window.onload = function() {
             checkTableParam();
             renderMenu(products);
+            
+            // Animasi Noren (Tirai Terbuka)
+            setTimeout(() => {
+                document.getElementById('splash-screen').classList.add('hide');
+            }, 2000); // Tunggu 2 detik
         };
 
         function checkTableParam() {
@@ -333,9 +351,9 @@
                 cartRender.innerHTML += `
                     <div class="order-item">
                         <div style="display:flex; align-items:flex-start;">
-                            <span class="qty-badge">${qty}x</span>
+                            <span style="font-weight:700; color:var(--indigo); margin-right:10px; width:25px;">${qty}x</span>
                             <div>
-                                <div style="font-weight:700; font-size:0.95rem; font-family: 'Noto Serif JP', serif;">${item.name}</div>
+                                <div style="font-weight:600; font-size:0.95rem; font-family: 'Noto Serif JP', serif;">${item.name}</div>
                                 <div style="font-size:0.8rem; color:var(--text-sec);">@ Rp ${item.price.toLocaleString()}</div>
                             </div>
                         </div>
@@ -346,15 +364,16 @@
 
             document.getElementById('totalItems').innerText = totalItems;
             document.getElementById('totalPrice').innerText = 'Rp ' + totalPrice.toLocaleString();
-            
             document.getElementById('summarySubtotal').innerText = 'Rp ' + totalPrice.toLocaleString();
+            
             const tax = totalPrice * 0.15; 
             document.getElementById('summaryTax').innerText = 'Rp ' + tax.toLocaleString(undefined, {maximumFractionDigits: 0});
             const totalBayar = totalPrice + tax;
             document.getElementById('summaryTotal').innerText = 'Rp ' + totalBayar.toLocaleString(undefined, {maximumFractionDigits: 0});
 
             const btn = document.getElementById('btnCart');
-            if(totalItems > 0) { btn.classList.remove('disabled'); } else { btn.classList.add('disabled'); }
+            if(totalItems > 0) { btn.classList.remove('disabled'); btn.style.background = "var(--primary)"; } 
+            else { btn.classList.add('disabled'); btn.style.background = "#ccc"; }
         }
 
         function openCart() {
@@ -374,14 +393,14 @@
         }
         function callStaff() {
             if(!currentTable) { showToast("Mohon Scan QR Code Meja"); return; }
-            showToast("Pelayan sedang menuju Meja " + currentTable);
+            showToast("Pelayan menuju Meja " + currentTable);
         }
         function submitOrder() {
             if(!currentTable) { alert("Error: Mohon scan ulang QR Code meja."); return; }
             const note = document.getElementById('orderNote').value;
             closeCart();
             setTimeout(() => {
-                alert(`Terima Kasih! Pesanan Meja ${currentTable} sedang disiapkan.\n\nCatatan: ${note ? note : '-'}`);
+                alert(`ARIGATOU! Pesanan Meja ${currentTable} diterima.\n\nCatatan: ${note ? note : '-'}`);
                 cart = {}; updateCartUI(); document.getElementById('orderNote').value = '';
             }, 500);
         }
