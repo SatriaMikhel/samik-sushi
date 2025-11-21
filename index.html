@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Samik Sushi - Menu Digital</title>
+    <title>Samik Sushi - Order & Pay</title>
     
-    <meta property="og:title" content="Samik Sushi - Authentic Japanese">
-    <meta property="og:description" content="Pesan menu sushi & ramen otentik langsung dari meja Anda.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=600">
     <meta name="theme-color" content="#A81B1B">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍣</text></svg>">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
@@ -22,29 +19,32 @@
             --text: #2C2C2C;
             --grey: #6E6E73;
             --indigo: #2C3E50;
-            --border: #EBE5DE;
+            --green: #2E7D32;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); color: var(--text); padding-bottom: 120px; font-family: 'Inter', sans-serif; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0c16.569 0 30 13.431 30 30 0 16.569-13.431 30-30 30C13.431 60 0 46.569 0 30 0 13.431 13.431 0 30 0zm0 5c13.807 0 25 11.193 25 25 0 13.807-11.193 25-25 25C16.193 55 5 43.807 5 30 5 16.193 16.193 5 30 5zm0 5c11.046 0 20 8.954 20 20 0 11.046-8.954 20-20 20-11.046 0-20-8.954-20-20 0-11.046 8.954-20 20-20zm0 5c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-8.284 0-15-6.716-15-15 0-8.284 6.716-15 15-15zm0 5c5.523 0 10 4.477 10 10 0 5.523-4.477 10-10 10-5.523 0-10-4.477-10-10 0-5.523 4.477-10 10-10z' fill='%23d4cdc3' fill-opacity='0.15' fill-rule='evenodd'/%3E%3C/svg%3E"); }
         
         h1, h2, .serif { font-family: 'Noto Serif JP', serif; }
 
-        /* NOREN SPLASH */
+        /* NOREN & MODALS */
         #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--primary); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; transition: transform 0.6s ease-in-out; }
         #splash.hide { transform: translateY(-100%); }
 
-        /* POPUP DETAIL */
-        .modal-detail { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 200; display: none; align-items: center; justify-content: center; backdrop-filter: blur(4px); opacity: 0; transition: 0.2s; }
-        .modal-detail.show { display: flex; opacity: 1; }
-        .detail-card { background: var(--surface); width: 90%; max-width: 400px; border-radius: 16px; overflow: hidden; position: relative; animation: popUp 0.3s; }
+        .modal-full { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 200; display: none; align-items: center; justify-content: center; backdrop-filter: blur(4px); opacity: 0; transition: 0.2s; }
+        .modal-full.show { display: flex; opacity: 1; }
+        .card-pop { background: var(--surface); width: 90%; max-width: 400px; border-radius: 16px; overflow: hidden; position: relative; animation: popUp 0.3s; max-height: 90vh; overflow-y: auto; }
         @keyframes popUp { from {transform: scale(0.9);} to {transform: scale(1);} }
-        .detail-close { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+
+        /* PAYMENT STYLES */
+        .pay-opt { border: 1px solid var(--border); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; }
+        .pay-opt.selected { border-color: var(--primary); background: #FFF5F5; }
+        .pay-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: #eee; border-radius: 8px; font-size: 1.2rem; }
         
         /* HEADER & HERO */
         header { background: var(--surface); padding: 15px 20px; position: sticky; top: 0; z-index: 90; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .hero { height: 150px; margin: 20px; border-radius: 16px; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?q=80&w=600'); background-size: cover; background-position: center; color: white; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; }
+        .hero { height: 140px; margin: 20px; border-radius: 16px; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?q=80&w=600'); background-size: cover; background-position: center; color: white; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; }
 
-        /* MENU & CONTROLS */
+        /* MENU LIST */
         .sticky-nav { position: sticky; top: 65px; z-index: 89; background: var(--bg); padding-bottom: 15px; }
         .search-box { margin: 0 20px 10px; background: var(--surface); padding: 10px 15px; border-radius: 8px; border: 1px solid var(--border); display: flex; gap: 10px; }
         .search-box input { border: none; outline: none; width: 100%; background: transparent; font-family: 'Inter'; }
@@ -53,22 +53,20 @@
         .cat-btn.active { background: var(--indigo); color: white; border-color: var(--indigo); }
 
         .menu-grid { padding: 0 20px; display: grid; gap: 15px; }
-        .card { background: var(--surface); padding: 12px; border-radius: 12px; display: flex; gap: 12px; border: 1px solid var(--border); box-shadow: 2px 2px 0 #ddd; }
-        .card.sold-out { opacity: 0.6; grayscale: 1; }
+        .card { background: var(--surface); padding: 12px; border-radius: 12px; display: flex; gap: 12px; border: 1px solid var(--border); box-shadow: 2px 2px 0 #ddd; position: relative; }
+        .card.sold-out { opacity: 0.6; grayscale: 1; pointer-events: none; }
         .card img { width: 90px; height: 90px; border-radius: 8px; object-fit: cover; background: #eee; }
-        .card-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .add-btn { width: 32px; height: 32px; border-radius: 8px; background: var(--surface); border: 2px solid var(--primary); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; }
-        .add-btn:active { background: var(--primary); color: white; }
-
-        /* BOTTOM NAV & SHEET */
+        .badge-best { position: absolute; top: -6px; left: -6px; background: #FFD700; color: #A81B1B; font-size: 0.65rem; padding: 4px 8px; border-radius: 4px; font-weight: 800; z-index: 10; transform: rotate(-5deg); border: 1px solid #fff; }
+        
+        /* BOTTOM & SHEET */
         .bottom-bar { position: fixed; bottom: 0; width: 100%; background: var(--surface); padding: 15px 20px 25px; border-radius: 20px 20px 0 0; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); display: flex; gap: 10px; z-index: 95; }
-        .btn-staff { width: 50px; height: 50px; background: var(--bg); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--indigo); border: 2px solid var(--indigo); }
-        .btn-cart { flex: 1; background: var(--primary); color: white; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; font-weight: 700; box-shadow: 0 4px 15px rgba(168, 27, 27, 0.3); transition: 0.2s; }
+        .btn-cart { flex: 1; background: var(--primary); color: white; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; font-weight: 700; box-shadow: 0 4px 15px rgba(168, 27, 27, 0.3); }
         .btn-cart.disabled { background: #ccc; box-shadow: none; pointer-events: none; }
         
         .sheet-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 100; display: none; backdrop-filter: blur(2px); }
         .sheet { position: fixed; bottom: 0; width: 100%; background: var(--bg); border-radius: 24px 24px 0 0; padding: 25px; transform: translateY(100%); transition: 0.3s cubic-bezier(0.2, 1, 0.3, 1); z-index: 101; max-height: 85vh; display: flex; flex-direction: column; }
         .sheet.show { transform: translateY(0); }
+        
         .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: var(--indigo); color: white; padding: 10px 20px; border-radius: 50px; z-index: 200; transition: 0.3s; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
         .toast.show { transform: translateY(0); }
     </style>
@@ -81,17 +79,48 @@
 
     <div class="toast" id="toastMsg"><i class="ph-fill ph-check-circle"></i> <span>Masuk keranjang</span></div>
 
-    <div class="modal-detail" id="modalDetail" onclick="closeDetail(event)">
-        <div class="detail-card">
-            <div class="detail-close" onclick="closeDetail(event)"><i class="ph-bold ph-x"></i></div>
-            <img src="" id="dImg" style="width: 100%; height: 220px; object-fit: cover;">
+    <div class="modal-full" id="modalDetail" onclick="closeModals(event)">
+        <div class="card-pop">
+            <div style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.5); color:white; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center;" onclick="closeModals(null, true)"><i class="ph-bold ph-x"></i></div>
+            <img src="" id="dImg" style="width: 100%; height: 250px; object-fit: cover;">
             <div style="padding: 20px;">
                 <h2 id="dName" style="font-size: 1.4rem; margin-bottom: 5px;">Menu</h2>
                 <span id="dPrice" style="color: var(--primary); font-weight: 700; font-size: 1.1rem;">Rp 0</span>
                 <p id="dDesc" style="color: var(--grey); font-size: 0.9rem; margin: 15px 0; line-height: 1.5;">Desc</p>
-                <div id="dBtn" style="background: var(--primary); color: white; padding: 14px; text-align: center; border-radius: 10px; font-weight: 700;">Tambah Pesanan</div>
+                <div id="dBtn" style="background: var(--primary); color: white; padding: 14px; text-align: center; border-radius: 10px; font-weight: 700; cursor: pointer;">Tambah Pesanan</div>
             </div>
         </div>
+    </div>
+
+    <div class="modal-full" id="modalPay">
+        <div class="card-pop" style="padding: 25px;">
+            <h2 style="margin-bottom: 5px;">Metode Pembayaran</h2>
+            <p style="font-size: 0.9rem; color: var(--grey); margin-bottom: 20px;">Total Tagihan: <strong style="color: var(--text);" id="payTotal">Rp 0</strong></p>
+
+            <div class="pay-opt" onclick="selectPay('qris', this)" id="optQris">
+                <div class="pay-icon"><i class="ph-fill ph-qr-code"></i></div>
+                <div>
+                    <div style="font-weight: 600;">QRIS / E-Wallet</div>
+                    <div style="font-size: 0.75rem; color: var(--grey);">OVO, GoPay, Dana, ShopeePay</div>
+                </div>
+            </div>
+
+            <div class="pay-opt" onclick="selectPay('cash', this)" id="optCash">
+                <div class="pay-icon"><i class="ph-fill ph-coins"></i></div>
+                <div>
+                    <div style="font-weight: 600;">Bayar di Kasir</div>
+                    <div style="font-size: 0.75rem; color: var(--grey);">Tunai / Debit di meja kasir</div>
+                </div>
+            </div>
+
+            <button id="btnPayConfirm" onclick="processPayment()" style="width:100%; background:#ccc; color:white; border:none; padding:15px; border-radius:12px; font-weight:700; margin-top:10px; cursor:not-allowed;" disabled>Pilih Metode Dulu</button>
+            <div style="text-align:center; margin-top:15px; font-size:0.9rem; color:var(--primary); font-weight:600; cursor:pointer;" onclick="document.getElementById('modalPay').classList.remove('show')">Batal / Kembali</div>
+        </div>
+    </div>
+
+    <div class="modal-full" id="modalSuccess">
+        <div class="card-pop" style="padding: 30px; text-align: center;" id="successContent">
+            </div>
     </div>
 
     <header>
@@ -146,38 +175,48 @@
             <div style="display:flex; justify-content:space-between;"><span>Tax (10%)</span> <span id="tax">Rp 0</span></div>
             <div style="display:flex; justify-content:space-between; font-weight:700; font-size:1.1rem; margin-top:5px; color:var(--primary);"><span>Total</span> <span id="finalTotal">Rp 0</span></div>
         </div>
-        <button onclick="submit()" style="width:100%; background:var(--primary); color:white; border:none; padding:15px; border-radius:12px; font-weight:700; font-size:1rem;">Kirim ke Dapur</button>
+        <button onclick="openPayment()" style="width:100%; background:var(--primary); color:white; border:none; padding:15px; border-radius:12px; font-weight:700; font-size:1rem;">Bayar Sekarang</button>
     </div>
     <script>
-        // --- DATA MENU (Link Gambar sudah dioptimasi w=400) ---
+        // DATA MENU (Link Gambar Valid & Optimized)
         const products = [
-            { id: 1, name: "Salmon Mentai", cat: "sushi", price: 45000, desc: "Salmon bakar saus mentai signature.", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=400&auto=format&fit=crop", soldOut: true },
+            { id: 1, name: "Salmon Mentai", cat: "sushi", price: 45000, desc: "Salmon bakar saus mentai signature.", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=400&auto=format&fit=crop", soldOut: true, best: true },
             { id: 2, name: "Maguro Nigiri", cat: "sushi", price: 30000, desc: "Tuna merah segar (2 pcs).", img: "https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=400&auto=format&fit=crop", soldOut: false },
             { id: 3, name: "Volcano Roll", cat: "sushi", price: 55000, desc: "Roll goreng pedas topping krispi.", img: "https://images.unsplash.com/photo-1617196034438-4e7d70247691?q=80&w=400&auto=format&fit=crop", soldOut: false },
-            { id: 4, name: "Miso Ramen", cat: "ramen", price: 42000, desc: "Kuah miso ayam kental.", img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=400&auto=format&fit=crop", soldOut: false },
-            { id: 5, name: "Gyoza", cat: "ramen", price: 28000, desc: "5 pcs pangsit ayam panggang.", img: "https://images.unsplash.com/photo-1626805164842-517125664e21?q=80&w=400&auto=format&fit=crop", soldOut: false },
+            { id: 4, name: "Miso Ramen", cat: "ramen", price: 42000, desc: "Kuah miso ayam kental.", img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=400&auto=format&fit=crop", soldOut: false, best: true },
+            { id: 5, name: "Chicken Gyoza", cat: "ramen", price: 28000, desc: "5 pcs pangsit ayam panggang.", img: "https://images.unsplash.com/photo-1626805164842-517125664e21?q=80&w=400&auto=format&fit=crop", soldOut: false },
             { id: 6, name: "Cold Ocha", cat: "drink", price: 12000, desc: "Teh hijau Jepang (Refill).", img: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=400&auto=format&fit=crop", soldOut: false },
         ];
 
-        let cart = {}, table = null;
+        let cart = {}, table = null, selectedMethod = null;
 
+        // --- INITIALIZATION ---
         window.onload = () => {
+            // 1. Cek Meja
             const p = new URLSearchParams(location.search).get('meja');
             if(p) { table = p; document.getElementById('tableInd').innerHTML = `<i class="ph-bold ph-chair"></i> MEJA ${p}`; document.getElementById('tableInd').style.background = "#E8F5E9"; document.getElementById('tableInd').style.borderColor = "#2E7D32"; document.getElementById('tableInd').style.color = "#2E7D32"; }
+            
+            // 2. Cek LocalStorage (Anti-Hilang)
+            const saved = localStorage.getItem('samikCart');
+            if(saved) { cart = JSON.parse(saved); updateCart(); }
+
             render(products);
             setTimeout(() => document.getElementById('splash').classList.add('hide'), 1500);
         };
 
+        // --- RENDERING ---
         function render(data) {
             const el = document.getElementById('menuList'); el.innerHTML = '';
             if(!data.length) { el.innerHTML = '<div style="text-align:center; color:#999; padding:20px;">Tidak ditemukan</div>'; return; }
             
             data.forEach(i => {
+                const badge = i.best ? `<div class="badge-best">BEST</div>` : '';
                 const btn = i.soldOut ? `<span style="font-size:0.7rem; border:1px solid #999; color:#999; padding:4px 8px; border-radius:6px;">HABIS</span>` 
                                       : `<div class="add-btn" onclick="event.stopPropagation(); add(${i.id})"><i class="ph-bold ph-plus"></i></div>`;
                 
                 el.innerHTML += `
                 <div class="card ${i.soldOut ? 'sold-out' : ''}" onclick="showDetail(${i.id})">
+                    ${badge}
                     <img src="${i.img}" alt="${i.name}">
                     <div class="card-info">
                         <div><div style="font-weight:700; margin-bottom:4px;">${i.name}</div><div style="font-size:0.8rem; color:var(--grey); line-height:1.2;">${i.desc}</div></div>
@@ -190,34 +229,36 @@
             });
         }
 
+        // --- ACTIONS ---
         function showDetail(id) {
             const i = products.find(p => p.id == id); if(!i) return;
-            document.getElementById('dImg').src = i.img.replace('w=400', 'w=600'); // Load better quality
+            document.getElementById('dImg').src = i.img.replace('w=400', 'w=600');
             document.getElementById('dName').innerText = i.name;
             document.getElementById('dPrice').innerText = 'Rp ' + i.price.toLocaleString();
             document.getElementById('dDesc').innerText = i.desc;
             const btn = document.getElementById('dBtn');
             if(i.soldOut) { btn.innerText = "STOK HABIS"; btn.style.background = "#ccc"; btn.onclick = null; }
-            else { btn.innerText = "Tambah Pesanan"; btn.style.background = "var(--primary)"; btn.onclick = () => { add(i.id); closeDetail({target:document.getElementById('modalDetail')}); }; }
+            else { btn.innerText = "Tambah Pesanan"; btn.style.background = "var(--primary)"; btn.onclick = () => { add(i.id); closeModals(null, true); }; }
             document.getElementById('modalDetail').classList.add('show');
         }
-        function closeDetail(e) { if(e.target.id === 'modalDetail' || e.target.closest('.detail-close')) document.getElementById('modalDetail').classList.remove('show'); }
-
+        function closeModals(e, force=false) { 
+            if(force || e.target.classList.contains('modal-full') || e.target.closest('.detail-close')) {
+                document.querySelectorAll('.modal-full').forEach(m => m.classList.remove('show'));
+            }
+        }
         function filter(c, el) {
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active')); el.classList.add('active');
             render(c === 'all' ? products : products.filter(p => p.cat === c));
         }
-        function doSearch() {
-            const q = document.getElementById('search').value.toLowerCase();
-            render(products.filter(p => p.name.toLowerCase().includes(q)));
-        }
+        function doSearch() { render(products.filter(p => p.name.toLowerCase().includes(document.getElementById('search').value.toLowerCase()))); }
+        function callStaff() { if(!table) return alert("Scan QR dulu!"); alert("Pelayan ke Meja " + table); }
 
+        // --- CART & LOCALSTORAGE ---
         function add(id) {
             cart[id] = (cart[id] || 0) + 1;
             updateCart();
             const t = document.getElementById('toastMsg'); t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000);
         }
-
         function updateCart() {
             let qty = 0, total = 0; const list = document.getElementById('cartItems'); list.innerHTML = '';
             for(let id in cart) {
@@ -229,18 +270,64 @@
             document.getElementById('subTotal').innerText = 'Rp ' + total.toLocaleString();
             document.getElementById('tax').innerText = 'Rp ' + (total*0.1).toLocaleString();
             document.getElementById('finalTotal').innerText = 'Rp ' + (total*1.1).toLocaleString();
+            document.getElementById('payTotal').innerText = 'Rp ' + (total*1.1).toLocaleString();
             
             const btn = document.getElementById('btnCart');
             if(qty > 0) { btn.classList.remove('disabled'); btn.style.background = "var(--primary)"; } else { btn.classList.add('disabled'); btn.style.background = "#ccc"; }
+            
+            // SAVE TO STORAGE
+            localStorage.setItem('samikCart', JSON.stringify(cart));
         }
-
         function openCart() { document.getElementById('overlay').style.display = 'block'; setTimeout(()=>document.getElementById('cartSheet').classList.add('show'), 10); }
         function closeCart() { document.getElementById('cartSheet').classList.remove('show'); setTimeout(()=>document.getElementById('overlay').style.display = 'none', 300); }
-        function callStaff() { if(!table) return alert("Scan QR dulu!"); alert("Pelayan ke Meja " + table); }
-        function submit() {
-            if(!table) return alert("Scan QR dulu!");
-            alert(`Pesanan Meja ${table} Terkirim!\nCatatan: ${document.getElementById('note').value}`);
-            cart = {}; updateCart(); closeCart(); document.getElementById('note').value = '';
+
+        // --- PAYMENT LOGIC (NEW) ---
+        function openPayment() {
+            if(!table) return alert("Mohon scan QR Meja terlebih dahulu!");
+            closeCart();
+            document.getElementById('modalPay').classList.add('show');
+        }
+        function selectPay(method, el) {
+            selectedMethod = method;
+            document.querySelectorAll('.pay-opt').forEach(b => b.classList.remove('selected'));
+            el.classList.add('selected');
+            const btn = document.getElementById('btnPayConfirm');
+            btn.disabled = false;
+            btn.style.background = "var(--primary)";
+            btn.style.cursor = "pointer";
+            btn.innerText = method === 'qris' ? "Bayar Sekarang (QRIS)" : "Buat Pesanan (Bayar Kasir)";
+        }
+        function processPayment() {
+            document.getElementById('modalPay').classList.remove('show');
+            const content = document.getElementById('successContent');
+            const orderID = "SMK-" + Math.floor(Math.random() * 10000);
+            const note = document.getElementById('note').value || "-";
+
+            if(selectedMethod === 'qris') {
+                // TAMPILAN QRIS DUMMY
+                content.innerHTML = `
+                    <i class="ph-fill ph-check-circle" style="font-size: 4rem; color: var(--green);"></i>
+                    <h2 style="margin: 10px 0;">Pembayaran Berhasil!</h2>
+                    <p style="color: var(--grey); margin-bottom:20px;">Pesanan Anda telah masuk ke dapur.</p>
+                    <div style="background:#eee; padding:15px; border-radius:10px; font-family:monospace; font-size:1.2rem; font-weight:700;">Order ID: ${orderID}</div>
+                    <p style="font-size:0.8rem; margin-top:15px; color:var(--grey);">Meja: ${table} • Catatan: ${note}</p>
+                    <button onclick="location.reload()" style="margin-top:20px; width:100%; padding:12px; background:var(--text); color:white; border:none; border-radius:10px;">Pesan Lagi</button>
+                `;
+            } else {
+                // TAMPILAN BAYAR DI KASIR
+                content.innerHTML = `
+                    <i class="ph-fill ph-receipt" style="font-size: 4rem; color: var(--indigo);"></i>
+                    <h2 style="margin: 10px 0;">Silakan ke Kasir</h2>
+                    <p style="color: var(--grey); margin-bottom:20px;">Tunjukkan kode ini ke kasir untuk membayar.</p>
+                    <div style="background:#FFF3E0; color:#E65100; padding:15px; border-radius:10px; font-family:monospace; font-size:1.5rem; font-weight:700; border:1px dashed #E65100;">${orderID}</div>
+                    <p style="font-size:0.8rem; margin-top:15px; color:var(--grey);">Pesanan akan diproses setelah pembayaran.</p>
+                    <button onclick="location.reload()" style="margin-top:20px; width:100%; padding:12px; background:var(--text); color:white; border:none; border-radius:10px;">Selesai</button>
+                `;
+            }
+
+            // Clear Data setelah order sukses
+            cart = {}; updateCart(); localStorage.removeItem('samikCart');
+            document.getElementById('modalSuccess').classList.add('show');
         }
     </script>
 </body>
