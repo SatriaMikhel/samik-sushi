@@ -3,459 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Samik Sushi - Authentic Experience</title>
+    <title>Samik Sushi - Menu Digital</title>
     
+    <meta property="og:title" content="Samik Sushi - Authentic Japanese">
+    <meta property="og:description" content="Pesan menu sushi & ramen otentik langsung dari meja Anda.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=600">
+    <meta name="theme-color" content="#A81B1B">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍣</text></svg>">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
         :root {
-            --primary: #A81B1B; /* Merah Lacquer Jepang */
-            --primary-dark: #7A1313;
-            --bg: #F9F7F4; /* Warna Kertas Beras */
+            --primary: #A81B1B;
+            --bg: #F9F7F4;
             --surface: #FFFFFF;
-            --text-main: #2C2C2C;
-            --text-sec: #6E6E73;
+            --text: #2C2C2C;
+            --grey: #6E6E73;
             --indigo: #2C3E50;
             --border: #EBE5DE;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { 
-            background-color: var(--bg); 
-            color: var(--text-main); 
-            padding-bottom: 120px; 
-            font-family: 'Inter', sans-serif;
-            /* Pola Seigaiha Halus pada Background */
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0c16.569 0 30 13.431 30 30 0 16.569-13.431 30-30 30C13.431 60 0 46.569 0 30 0 13.431 13.431 0 30 0zm0 5c13.807 0 25 11.193 25 25 0 13.807-11.193 25-25 25C16.193 55 5 43.807 5 30 5 16.193 16.193 5 30 5zm0 5c11.046 0 20 8.954 20 20 0 11.046-8.954 20-20 20-11.046 0-20-8.954-20-20 0-11.046 8.954-20 20-20zm0 5c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-8.284 0-15-6.716-15-15 0-8.284 6.716-15 15-15zm0 5c5.523 0 10 4.477 10 10 0 5.523-4.477 10-10 10-5.523 0-10-4.477-10-10 0-5.523 4.477-10 10-10z' fill='%23d4cdc3' fill-opacity='0.15' fill-rule='evenodd'/%3E%3C/svg%3E");
-        }
-
-        h1, h2, .m-title, .price, .splash-logo { font-family: 'Noto Serif JP', serif; }
-
-        /* --- SPLASH SCREEN (NOREN) --- */
-        #splash-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--primary);
-            z-index: 9999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            color: white; 
-            transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1);
-        }
-        #splash-screen.hide { transform: translateY(-100%); }
-        .splash-logo { font-size: 2.5rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 5px; }
-        .splash-sub { font-size: 0.9rem; opacity: 0.9; letter-spacing: 4px; font-family: 'Inter'; text-transform: uppercase; }
-
-        /* --- HEADER --- */
-        header {
-            background: var(--surface); padding: 15px 20px;
-            position: sticky; top: 0; z-index: 90;
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 2px solid var(--primary);
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.258 10.892 8.077 12 0 12v2z' fill='%23A81B1B' fill-opacity='0.08' fill-rule='evenodd'/%3E%3C/svg%3E");
-        }
-        .brand-col h1 { font-size: 1.3rem; font-weight: 900; color: var(--primary); display: flex; align-items: center; gap: 8px; }
-        .jp-text { font-size: 1rem; opacity: 0.8; font-weight: normal; }
-        .brand-col p { font-size: 0.75rem; color: var(--text-sec); font-weight: 500; }
-        .table-indicator {
-            background: var(--surface); padding: 6px 12px; border-radius: 4px;
-            font-size: 0.75rem; font-weight: 700; color: var(--indigo);
-            border: 1px solid var(--indigo); box-shadow: 2px 2px 0 var(--indigo);
-        }
-
-        /* --- HERO & CONTROLS --- */
-        .hero-container { padding: 20px; }
-        .hero {
-            height: 160px; border-radius: 16px;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?q=80&w=500&auto=format&fit=crop');
-            background-size: cover; background-position: center;
-            color: white; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;
-            box-shadow: 0 10px 30px rgba(168, 27, 27, 0.25); border: 1px solid rgba(255,255,255,0.2);
-        }
-        .hero h2 { font-size: 1.6rem; font-weight: 900; text-shadow: 0 2px 10px rgba(0,0,0,0.5); line-height: 1.2; }
-
-        .controls-sticky {
-            position: sticky; top: 65px; z-index: 89; background: var(--bg); padding: 5px 0 15px 0;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0c16.569 0 30 13.431 30 30 0 16.569-13.431 30-30 30C13.431 60 0 46.569 0 30 0 13.431 13.431 0 30 0zm0 5c13.807 0 25 11.193 25 25 0 13.807-11.193 25-25 25C16.193 55 5 43.807 5 30 5 16.193 16.193 5 30 5zm0 5c11.046 0 20 8.954 20 20 0 11.046-8.954 20-20 20-11.046 0-20-8.954-20-20 0-11.046 8.954-20 20-20zm0 5c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-8.284 0-15-6.716-15-15 0-8.284 6.716-15 15-15zm0 5c5.523 0 10 4.477 10 10 0 5.523-4.477 10-10 10-5.523 0-10-4.477-10-10 0-5.523 4.477-10 10-10z' fill='%23d4cdc3' fill-opacity='0.15' fill-rule='evenodd'/%3E%3C/svg%3E");
-        }
-        .search-box {
-            margin: 0 20px 15px 20px; background: var(--surface); border-radius: 10px;
-            padding: 12px 15px; display: flex; align-items: center; gap: 10px; border: 1px solid var(--border);
-        }
-        .search-box input { border: none; outline: none; width: 100%; font-family: 'Inter'; background: transparent; }
-
-        .categories { padding: 0 20px; display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; }
-        .categories::-webkit-scrollbar { display: none; }
-        .cat-pill {
-            padding: 10px 16px; background: var(--surface); border-radius: 50px;
-            font-size: 0.9rem; font-weight: 600; color: var(--text-sec); white-space: nowrap; 
-            cursor: pointer; border: 1px solid var(--border); display: flex; align-items: center; gap: 8px; transition: 0.2s;
-        }
-        .cat-pill.active { background: var(--indigo); color: white; border-color: var(--indigo); box-shadow: 0 4px 10px rgba(44, 62, 80, 0.2); }
-
-        /* --- MENU LIST --- */
-        .menu-list { padding: 0 20px 20px 20px; display: grid; gap: 20px; }
-        .menu-card {
-            background: var(--surface); border-radius: 16px; padding: 15px;
-            display: flex; gap: 15px; position: relative;
-            box-shadow: 4px 4px 0 var(--border); border: 1px solid var(--border);
-        }
-        .menu-card.sold-out { opacity: 0.6; grayscale: 100%; pointer-events: none; }
-        .thumb { width: 100px; height: 100px; border-radius: 12px; object-fit: cover; background: #eee; }
-        .badge-sold {
-            position: absolute; top: -8px; left: -8px; background: #333; color: white;
-            font-size: 0.7rem; padding: 6px 10px; border-radius: 4px; font-weight: 700;
-            z-index: 10; display: none; transform: rotate(-5deg); box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
-        }
-        .menu-card.sold-out .badge-sold { display: block; }
-        .info { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .m-title { font-weight: 900; font-size: 1.05rem; margin-bottom: 4px; color: var(--text-main); }
-        .m-desc { font-size: 0.8rem; color: var(--text-sec); line-height: 1.4; }
-        .m-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
-        .add-btn {
-            width: 36px; height: 36px; border-radius: 10px; background: var(--surface); 
-            color: var(--primary); border: 2px solid var(--primary); display: flex; 
-            align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer;
-        }
-        .add-btn:active { background: var(--primary); color: white; transform: scale(0.95); }
-
-        /* --- NAV & MODAL --- */
-        .bottom-nav {
-            position: fixed; bottom: 0; width: 100%; background: var(--surface);
-            padding: 15px 20px 25px 20px; border-radius: 24px 24px 0 0;
-            box-shadow: 0 -5px 25px rgba(0,0,0,0.05); z-index: 95;
-            display: flex; gap: 10px; border-top: 1px solid var(--border);
-        }
-        .btn-staff {
-            width: 54px; height: 54px; border-radius: 14px; background: var(--bg);
-            color: var(--indigo); display: flex; align-items: center; justify-content: center;
-            font-size: 1.6rem; cursor: pointer; border: 2px solid var(--indigo);
-        }
-        .btn-cart {
-            flex: 1; background: var(--primary); color: white;
-            border-radius: 14px; display: flex; justify-content: space-between; align-items: center;
-            padding: 0 20px; cursor: pointer; font-weight: 700; border: 2px solid var(--primary);
-            box-shadow: 0 5px 15px rgba(168, 27, 27, 0.3); transition: 0.2s;
-        }
-        .btn-cart.disabled { background: #ccc; border-color: #ccc; box-shadow: none; pointer-events: none; }
-
-        .sheet-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(44, 62, 80, 0.8); z-index: 100; opacity: 0; pointer-events: none; transition: 0.3s; backdrop-filter: blur(4px); }
-        .sheet-overlay.active { opacity: 1; pointer-events: all; }
-        .sheet-content { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg); border-radius: 24px 24px 0 0; padding: 25px; transform: translateY(100%); transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 101; max-height: 90vh; display: flex; flex-direction: column; }
-        .sheet-content.active { transform: translateY(0); }
+        body { background: var(--bg); color: var(--text); padding-bottom: 120px; font-family: 'Inter', sans-serif; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0c16.569 0 30 13.431 30 30 0 16.569-13.431 30-30 30C13.431 60 0 46.569 0 30 0 13.431 13.431 0 30 0zm0 5c13.807 0 25 11.193 25 25 0 13.807-11.193 25-25 25C16.193 55 5 43.807 5 30 5 16.193 16.193 5 30 5zm0 5c11.046 0 20 8.954 20 20 0 11.046-8.954 20-20 20-11.046 0-20-8.954-20-20 0-11.046 8.954-20 20-20zm0 5c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-8.284 0-15-6.716-15-15 0-8.284 6.716-15 15-15zm0 5c5.523 0 10 4.477 10 10 0 5.523-4.477 10-10 10-5.523 0-10-4.477-10-10 0-5.523 4.477-10 10-10z' fill='%23d4cdc3' fill-opacity='0.15' fill-rule='evenodd'/%3E%3C/svg%3E"); }
         
-        .order-list { overflow-y: auto; margin: 20px 0; padding-right: 5px; }
-        .order-item { display: flex; justify-content: space-between; margin-bottom: 15px; align-items: flex-start; padding-bottom: 15px; border-bottom: 1px dashed #ccc; }
-        .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: var(--indigo); color: white; padding: 12px 24px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; z-index: 200; transition: 0.4s; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 8px; }
-        .toast.show { transform: translateX(-50%) translateY(0); }
+        h1, h2, .serif { font-family: 'Noto Serif JP', serif; }
+
+        /* NOREN SPLASH */
+        #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--primary); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; transition: transform 0.6s ease-in-out; }
+        #splash.hide { transform: translateY(-100%); }
+
+        /* POPUP DETAIL */
+        .modal-detail { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 200; display: none; align-items: center; justify-content: center; backdrop-filter: blur(4px); opacity: 0; transition: 0.2s; }
+        .modal-detail.show { display: flex; opacity: 1; }
+        .detail-card { background: var(--surface); width: 90%; max-width: 400px; border-radius: 16px; overflow: hidden; position: relative; animation: popUp 0.3s; }
+        @keyframes popUp { from {transform: scale(0.9);} to {transform: scale(1);} }
+        .detail-close { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        
+        /* HEADER & HERO */
+        header { background: var(--surface); padding: 15px 20px; position: sticky; top: 0; z-index: 90; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .hero { height: 150px; margin: 20px; border-radius: 16px; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?q=80&w=600'); background-size: cover; background-position: center; color: white; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; }
+
+        /* MENU & CONTROLS */
+        .sticky-nav { position: sticky; top: 65px; z-index: 89; background: var(--bg); padding-bottom: 15px; }
+        .search-box { margin: 0 20px 10px; background: var(--surface); padding: 10px 15px; border-radius: 8px; border: 1px solid var(--border); display: flex; gap: 10px; }
+        .search-box input { border: none; outline: none; width: 100%; background: transparent; font-family: 'Inter'; }
+        .categories { padding: 0 20px; display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; }
+        .cat-btn { padding: 8px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 50px; white-space: nowrap; font-size: 0.9rem; color: var(--grey); transition: 0.2s; }
+        .cat-btn.active { background: var(--indigo); color: white; border-color: var(--indigo); }
+
+        .menu-grid { padding: 0 20px; display: grid; gap: 15px; }
+        .card { background: var(--surface); padding: 12px; border-radius: 12px; display: flex; gap: 12px; border: 1px solid var(--border); box-shadow: 2px 2px 0 #ddd; }
+        .card.sold-out { opacity: 0.6; grayscale: 1; }
+        .card img { width: 90px; height: 90px; border-radius: 8px; object-fit: cover; background: #eee; }
+        .card-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .add-btn { width: 32px; height: 32px; border-radius: 8px; background: var(--surface); border: 2px solid var(--primary); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; }
+        .add-btn:active { background: var(--primary); color: white; }
+
+        /* BOTTOM NAV & SHEET */
+        .bottom-bar { position: fixed; bottom: 0; width: 100%; background: var(--surface); padding: 15px 20px 25px; border-radius: 20px 20px 0 0; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); display: flex; gap: 10px; z-index: 95; }
+        .btn-staff { width: 50px; height: 50px; background: var(--bg); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--indigo); border: 2px solid var(--indigo); }
+        .btn-cart { flex: 1; background: var(--primary); color: white; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; font-weight: 700; box-shadow: 0 4px 15px rgba(168, 27, 27, 0.3); transition: 0.2s; }
+        .btn-cart.disabled { background: #ccc; box-shadow: none; pointer-events: none; }
+        
+        .sheet-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 100; display: none; backdrop-filter: blur(2px); }
+        .sheet { position: fixed; bottom: 0; width: 100%; background: var(--bg); border-radius: 24px 24px 0 0; padding: 25px; transform: translateY(100%); transition: 0.3s cubic-bezier(0.2, 1, 0.3, 1); z-index: 101; max-height: 85vh; display: flex; flex-direction: column; }
+        .sheet.show { transform: translateY(0); }
+        .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: var(--indigo); color: white; padding: 10px 20px; border-radius: 50px; z-index: 200; transition: 0.3s; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
+        .toast.show { transform: translateY(0); }
     </style>
 </head>
 <body>
-    <div id="splash-screen">
-        <div class="splash-logo">SAMIK SUSHI</div>
-        <div class="splash-logo" style="font-size: 1.5rem;">サミック寿司</div>
-        <div class="splash-sub">AUTHENTIC JAPANESE</div>
+    <div id="splash">
+        <h1 style="font-size: 2rem; letter-spacing: 2px;">SAMIK SUSHI</h1>
+        <p style="letter-spacing: 4px; font-size: 0.9rem; opacity: 0.9;">AUTHENTIC JAPANESE</p>
     </div>
 
-    <div class="toast" id="toastMsg">
-        <i class="ph-fill ph-check-circle" style="color: #4CAF50;"></i>
-        <span id="toastText">Berhasil ditambahkan</span>
+    <div class="toast" id="toastMsg"><i class="ph-fill ph-check-circle"></i> <span>Masuk keranjang</span></div>
+
+    <div class="modal-detail" id="modalDetail" onclick="closeDetail(event)">
+        <div class="detail-card">
+            <div class="detail-close" onclick="closeDetail(event)"><i class="ph-bold ph-x"></i></div>
+            <img src="" id="dImg" style="width: 100%; height: 220px; object-fit: cover;">
+            <div style="padding: 20px;">
+                <h2 id="dName" style="font-size: 1.4rem; margin-bottom: 5px;">Menu</h2>
+                <span id="dPrice" style="color: var(--primary); font-weight: 700; font-size: 1.1rem;">Rp 0</span>
+                <p id="dDesc" style="color: var(--grey); font-size: 0.9rem; margin: 15px 0; line-height: 1.5;">Desc</p>
+                <div id="dBtn" style="background: var(--primary); color: white; padding: 14px; text-align: center; border-radius: 10px; font-weight: 700;">Tambah Pesanan</div>
+            </div>
+        </div>
     </div>
 
     <header>
-        <div class="brand-col">
-            <h1>SAMIK SUSHI <span class="jp-text">サミック寿司</span></h1>
-            <p>Jln. Merdeka No. 88</p>
+        <div>
+            <h1 style="color: var(--primary); font-size: 1.2rem;">SAMIK SUSHI <span style="font-weight:400; opacity:0.7; font-size:0.9rem;">サミック</span></h1>
+            <p style="font-size: 0.75rem; color: var(--grey);">Jln. Merdeka No. 88</p>
         </div>
-        <div class="table-indicator" id="tableIndicator">
+        <div id="tableInd" style="border:1px solid var(--indigo); color:var(--indigo); padding:5px 10px; border-radius:6px; font-size:0.75rem; font-weight:700;">
             <i class="ph-bold ph-qr-code"></i> Scan QR
         </div>
     </header>
 
-    <div class="hero-container">
-        <div class="hero">
-            <h2>Authentic<br>Japanese Taste</h2>
-            <p>Salmon Festival - Disc 20% All Items!</p>
-        </div>
+    <div class="hero">
+        <h2 class="serif" style="font-size: 1.5rem; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">Salmon Festival</h2>
+        <p>Diskon 20% Semua Menu Salmon!</p>
     </div>
 
-    <div class="controls-sticky">
+    <div class="sticky-nav">
         <div class="search-box">
-            <i class="ph-bold ph-magnifying-glass" style="color: var(--text-sec);"></i>
-            <input type="text" id="searchInput" placeholder="Cari menu (misal: Salmon)..." oninput="doSearch()">
+            <i class="ph-bold ph-magnifying-glass" style="color: var(--grey);"></i>
+            <input type="text" id="search" placeholder="Cari menu..." oninput="doSearch()">
         </div>
-
         <div class="categories">
-            <div class="cat-pill active" onclick="filterCat('all', this)">
-                <i class="ph-fill ph-squares-four"></i> Semua
-            </div>
-            <div class="cat-pill" onclick="filterCat('sushi', this)">
-                <i class="ph-fill ph-fish-simple"></i> Sushi
-            </div>
-            <div class="cat-pill" onclick="filterCat('ramen', this)">
-                <i class="ph-fill ph-bowl-food"></i> Ramen
-            </div>
-            <div class="cat-pill" onclick="filterCat('drink', this)">
-                <i class="ph-fill ph-coffee"></i> Minuman
-            </div>
+            <div class="cat-btn active" onclick="filter('all', this)">Semua</div>
+            <div class="cat-btn" onclick="filter('sushi', this)">Sushi</div>
+            <div class="cat-btn" onclick="filter('ramen', this)">Ramen</div>
+            <div class="cat-btn" onclick="filter('drink', this)">Minuman</div>
         </div>
     </div>
 
-    <div class="menu-list" id="menuList">
-        </div>
+    <div class="menu-grid" id="menuList"></div>
 
-    <div class="bottom-nav">
-        <div class="btn-staff" onclick="callStaff()">
-            <i class="ph-fill ph-hand-waving"></i>
-        </div>
+    <div class="bottom-bar">
+        <div class="btn-staff" onclick="callStaff()"><i class="ph-fill ph-hand-waving"></i></div>
         <div class="btn-cart disabled" id="btnCart" onclick="openCart()">
-            <span style="display: flex; align-items: center; gap: 8px;">
-                <i class="ph-fill ph-basket"></i> <span id="totalItems">0</span> Item
-            </span>
-            <span>Total: <span id="totalPrice">Rp 0</span></span>
+            <span><i class="ph-fill ph-basket"></i> <span id="cCount">0</span></span>
+            <span id="cTotal">Rp 0</span>
         </div>
     </div>
 
     <div class="sheet-overlay" id="overlay" onclick="closeCart()"></div>
-    <div class="sheet-content" id="cartSheet">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <h2 style="font-size: 1.3rem;">Pesanan Anda</h2>
-            <i class="ph-bold ph-x" style="font-size: 1.5rem; cursor: pointer; color: var(--text-sec);" onclick="closeCart()"></i>
+    <div class="sheet" id="cartSheet">
+        <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
+            <h2 style="font-size:1.2rem;">Pesanan Anda</h2>
+            <i class="ph-bold ph-x" style="font-size:1.5rem; color:var(--grey);" onclick="closeCart()"></i>
         </div>
+        <div id="cartItems" style="overflow-y:auto; flex:1; margin-bottom:15px;"></div>
+        <textarea id="note" rows="2" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc; margin-bottom:15px;" placeholder="Catatan (Opsional)..."></textarea>
         
-        <div class="order-list" id="cartItemsRender"></div>
-
-        <div>
-            <small style="font-weight: 700; margin-bottom: 5px; display: block; color: var(--indigo);">Catatan Dapur (Opsional)</small>
-            <textarea class="note-input" id="orderNote" rows="2" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;" placeholder="Contoh: Wasabi dipisah, jangan pakai daun bawang..."></textarea>
+        <div style="border-top:1px dashed #ccc; padding-top:10px; margin-bottom:15px;">
+            <div style="display:flex; justify-content:space-between;"><span>Subtotal</span> <span id="subTotal">Rp 0</span></div>
+            <div style="display:flex; justify-content:space-between;"><span>Tax (10%)</span> <span id="tax">Rp 0</span></div>
+            <div style="display:flex; justify-content:space-between; font-weight:700; font-size:1.1rem; margin-top:5px; color:var(--primary);"><span>Total</span> <span id="finalTotal">Rp 0</span></div>
         </div>
-
-        <div style="margin-top: 20px; border-top: 2px dashed var(--border); padding-top: 15px;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                <span style="color: var(--text-sec);">Subtotal</span>
-                <span id="summarySubtotal">Rp 0</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                <span style="color: var(--text-sec);">Tax & Service (15%)</span>
-                <span id="summaryTax">Rp 0</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; font-weight: 900; font-size: 1.2rem; margin-top: 10px; color: var(--primary);">
-                <span>Total Bayar</span>
-                <span id="summaryTotal">Rp 0</span>
-            </div>
-        </div>
-
-        <button style="margin-top: 20px; width: 100%; background: var(--primary); color: white; border: none; padding: 16px; border-radius: 12px; font-weight: 700; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(168, 27, 27, 0.4);" onclick="submitOrder()">
-            Kirim Pesanan
-        </button>
+        <button onclick="submit()" style="width:100%; background:var(--primary); color:white; border:none; padding:15px; border-radius:12px; font-weight:700; font-size:1rem;">Kirim ke Dapur</button>
     </div>
     <script>
-        // DATABASE MENU DENGAN LINK GAMBAR YANG SUDAH DIPERBAIKI
+        // --- DATA MENU (Link Gambar sudah dioptimasi w=400) ---
         const products = [
-            { 
-                id: 1, 
-                name: "Salmon Mentai", 
-                cat: "sushi", 
-                price: 45000, 
-                desc: "Salmon bakar premium dengan saus mentai khas Samik.", 
-                // GANTI LINK KE GAMBAR SUSHI YANG VALID
-                img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=400&auto=format&fit=crop", 
-                soldOut: true 
-            },
-            { 
-                id: 2, 
-                name: "Maguro Nigiri", 
-                cat: "sushi", 
-                price: 30000, 
-                desc: "Tuna merah segar di atas nasi cuka Jepang.", 
-                img: "https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=400&auto=format&fit=crop", 
-                soldOut: false 
-            },
-            { 
-                id: 3, 
-                name: "Volcano Roll", 
-                cat: "sushi", 
-                price: 55000, 
-                desc: "Roll goreng pedas dengan topping krispi dan mayo.", 
-                img: "https://images.unsplash.com/photo-1617196034438-4e7d70247691?q=80&w=400&auto=format&fit=crop", 
-                soldOut: false 
-            },
-            { 
-                id: 4, 
-                name: "Sapporo Miso Ramen", 
-                cat: "ramen", 
-                price: 42000, 
-                desc: "Kuah kaldu miso kental dengan chashu ayam.", 
-                img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=400&auto=format&fit=crop", 
-                soldOut: false 
-            },
-            { 
-                id: 5, 
-                name: "Chicken Gyoza", 
-                cat: "ramen", 
-                price: 28000, 
-                desc: "5 pcs pangsit ayam panggang ala Jepang.", 
-                // GANTI LINK KE GAMBAR GYOZA YANG VALID
-                img: "https://images.unsplash.com/photo-1626805164842-517125664e21?q=80&w=400&auto=format&fit=crop", 
-                soldOut: false 
-            },
-            { 
-                id: 6, 
-                name: "Cold Ocha", 
-                cat: "drink", 
-                price: 12000, 
-                desc: "Teh hijau Jepang tawar, menyegarkan. (Refill)", 
-                // GANTI LINK KE GAMBAR TEH (BUKAN KOSMETIK)
-                img: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=400&auto=format&fit=crop", 
-                soldOut: false 
-            },
+            { id: 1, name: "Salmon Mentai", cat: "sushi", price: 45000, desc: "Salmon bakar saus mentai signature.", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=400&auto=format&fit=crop", soldOut: true },
+            { id: 2, name: "Maguro Nigiri", cat: "sushi", price: 30000, desc: "Tuna merah segar (2 pcs).", img: "https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=400&auto=format&fit=crop", soldOut: false },
+            { id: 3, name: "Volcano Roll", cat: "sushi", price: 55000, desc: "Roll goreng pedas topping krispi.", img: "https://images.unsplash.com/photo-1617196034438-4e7d70247691?q=80&w=400&auto=format&fit=crop", soldOut: false },
+            { id: 4, name: "Miso Ramen", cat: "ramen", price: 42000, desc: "Kuah miso ayam kental.", img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=400&auto=format&fit=crop", soldOut: false },
+            { id: 5, name: "Gyoza", cat: "ramen", price: 28000, desc: "5 pcs pangsit ayam panggang.", img: "https://images.unsplash.com/photo-1626805164842-517125664e21?q=80&w=400&auto=format&fit=crop", soldOut: false },
+            { id: 6, name: "Cold Ocha", cat: "drink", price: 12000, desc: "Teh hijau Jepang (Refill).", img: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=400&auto=format&fit=crop", soldOut: false },
         ];
 
-        let cart = {};
-        let currentTable = null;
+        let cart = {}, table = null;
 
-        // INIT: Load Data & Splash Screen
-        window.onload = function() {
-            checkTableParam();
-            renderMenu(products);
-            
-            // Animasi Noren (Tirai Terbuka)
-            setTimeout(() => {
-                document.getElementById('splash-screen').classList.add('hide');
-            }, 2000); // Tunggu 2 detik
+        window.onload = () => {
+            const p = new URLSearchParams(location.search).get('meja');
+            if(p) { table = p; document.getElementById('tableInd').innerHTML = `<i class="ph-bold ph-chair"></i> MEJA ${p}`; document.getElementById('tableInd').style.background = "#E8F5E9"; document.getElementById('tableInd').style.borderColor = "#2E7D32"; document.getElementById('tableInd').style.color = "#2E7D32"; }
+            render(products);
+            setTimeout(() => document.getElementById('splash').classList.add('hide'), 1500);
         };
 
-        function checkTableParam() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const table = urlParams.get('meja');
-            const indicator = document.getElementById('tableIndicator');
+        function render(data) {
+            const el = document.getElementById('menuList'); el.innerHTML = '';
+            if(!data.length) { el.innerHTML = '<div style="text-align:center; color:#999; padding:20px;">Tidak ditemukan</div>'; return; }
             
-            if(table) {
-                currentTable = table;
-                indicator.innerHTML = `<i class="ph-bold ph-chair"></i> MEJA ${table}`;
-                indicator.style.background = "#E8F5E9"; indicator.style.color = "#2E7D32"; indicator.style.borderColor = "#2E7D32"; indicator.style.boxShadow = "none";
-            } else {
-                indicator.innerHTML = `<i class="ph-bold ph-qr-code"></i> Scan QR`;
-            }
-        }
-
-        function renderMenu(data) {
-            const list = document.getElementById('menuList');
-            list.innerHTML = '';
-            if(data.length === 0) {
-                list.innerHTML = '<div style="text-align:center; color:var(--text-sec); padding:40px; font-weight:500;">Menu tidak ditemukan.</div>';
-                return;
-            }
-            data.forEach(item => {
-                const soldClass = item.soldOut ? 'sold-out' : '';
-                const btnHtml = item.soldOut 
-                    ? `<span style="font-size:0.8rem; font-weight:700; color:var(--text-sec); border:2px solid var(--border); padding: 4px 10px; border-radius:6px;">HABIS</span>` 
-                    : `<button class="add-btn" onclick="addToCart(${item.id})"><i class="ph-bold ph-plus"></i></button>`;
-
-                list.innerHTML += `
-                    <div class="menu-card ${soldClass}">
-                        <div class="badge-sold">SOLD OUT</div>
-                        <img src="${item.img}" class="thumb" alt="${item.name}">
-                        <div class="info">
-                            <div>
-                                <div class="m-title">${item.name}</div>
-                                <div class="m-desc">${item.desc}</div>
-                            </div>
-                            <div class="m-footer">
-                                <div class="price">Rp ${item.price.toLocaleString()}</div>
-                                ${btnHtml}
-                            </div>
+            data.forEach(i => {
+                const btn = i.soldOut ? `<span style="font-size:0.7rem; border:1px solid #999; color:#999; padding:4px 8px; border-radius:6px;">HABIS</span>` 
+                                      : `<div class="add-btn" onclick="event.stopPropagation(); add(${i.id})"><i class="ph-bold ph-plus"></i></div>`;
+                
+                el.innerHTML += `
+                <div class="card ${i.soldOut ? 'sold-out' : ''}" onclick="showDetail(${i.id})">
+                    <img src="${i.img}" alt="${i.name}">
+                    <div class="card-info">
+                        <div><div style="font-weight:700; margin-bottom:4px;">${i.name}</div><div style="font-size:0.8rem; color:var(--grey); line-height:1.2;">${i.desc}</div></div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                            <div style="color:var(--primary); font-weight:700;">Rp ${i.price.toLocaleString()}</div>
+                            ${btn}
                         </div>
                     </div>
-                `;
+                </div>`;
             });
         }
 
-        function filterCat(cat, el) {
-            document.querySelectorAll('.cat-pill').forEach(c => c.classList.remove('active'));
-            el.classList.add('active');
-            const filtered = cat === 'all' ? products : products.filter(p => p.cat === cat);
-            renderMenu(filtered);
+        function showDetail(id) {
+            const i = products.find(p => p.id == id); if(!i) return;
+            document.getElementById('dImg').src = i.img.replace('w=400', 'w=600'); // Load better quality
+            document.getElementById('dName').innerText = i.name;
+            document.getElementById('dPrice').innerText = 'Rp ' + i.price.toLocaleString();
+            document.getElementById('dDesc').innerText = i.desc;
+            const btn = document.getElementById('dBtn');
+            if(i.soldOut) { btn.innerText = "STOK HABIS"; btn.style.background = "#ccc"; btn.onclick = null; }
+            else { btn.innerText = "Tambah Pesanan"; btn.style.background = "var(--primary)"; btn.onclick = () => { add(i.id); closeDetail({target:document.getElementById('modalDetail')}); }; }
+            document.getElementById('modalDetail').classList.add('show');
         }
+        function closeDetail(e) { if(e.target.id === 'modalDetail' || e.target.closest('.detail-close')) document.getElementById('modalDetail').classList.remove('show'); }
 
+        function filter(c, el) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active')); el.classList.add('active');
+            render(c === 'all' ? products : products.filter(p => p.cat === c));
+        }
         function doSearch() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = products.filter(p => p.name.toLowerCase().includes(query));
-            renderMenu(filtered);
+            const q = document.getElementById('search').value.toLowerCase();
+            render(products.filter(p => p.name.toLowerCase().includes(q)));
         }
 
-        function addToCart(id) {
-            if(!cart[id]) cart[id] = 0;
-            cart[id]++;
-            updateCartUI();
-            showToast("Masuk keranjang");
+        function add(id) {
+            cart[id] = (cart[id] || 0) + 1;
+            updateCart();
+            const t = document.getElementById('toastMsg'); t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000);
         }
 
-        function updateCartUI() {
-            let totalItems = 0;
-            let totalPrice = 0;
-            const cartRender = document.getElementById('cartItemsRender');
-            cartRender.innerHTML = '';
-
-            for(const [id, qty] of Object.entries(cart)) {
-                const item = products.find(p => p.id == id);
-                totalItems += qty;
-                totalPrice += (item.price * qty);
-
-                cartRender.innerHTML += `
-                    <div class="order-item">
-                        <div style="display:flex; align-items:flex-start;">
-                            <span style="font-weight:700; color:var(--indigo); margin-right:10px; width:25px;">${qty}x</span>
-                            <div>
-                                <div style="font-weight:600; font-size:0.95rem; font-family: 'Noto Serif JP', serif;">${item.name}</div>
-                                <div style="font-size:0.8rem; color:var(--text-sec);">@ Rp ${item.price.toLocaleString()}</div>
-                            </div>
-                        </div>
-                        <div style="font-weight:700; font-family: 'Noto Serif JP', serif;">Rp ${(item.price * qty).toLocaleString()}</div>
-                    </div>
-                `;
+        function updateCart() {
+            let qty = 0, total = 0; const list = document.getElementById('cartItems'); list.innerHTML = '';
+            for(let id in cart) {
+                const i = products.find(p => p.id == id), q = cart[id];
+                qty += q; total += i.price * q;
+                list.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px dashed #eee; padding-bottom:10px;"><div style="display:flex; gap:10px;"><div style="background:var(--indigo); color:white; width:24px; height:24px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:0.8rem;">${q}</div><div><div style="font-weight:600;">${i.name}</div><div style="font-size:0.8rem; color:#777;">@ ${i.price.toLocaleString()}</div></div></div><div style="font-weight:600;">${(i.price*q).toLocaleString()}</div></div>`;
             }
-
-            document.getElementById('totalItems').innerText = totalItems;
-            document.getElementById('totalPrice').innerText = 'Rp ' + totalPrice.toLocaleString();
-            document.getElementById('summarySubtotal').innerText = 'Rp ' + totalPrice.toLocaleString();
+            document.getElementById('cCount').innerText = qty; document.getElementById('cTotal').innerText = 'Rp ' + total.toLocaleString();
+            document.getElementById('subTotal').innerText = 'Rp ' + total.toLocaleString();
+            document.getElementById('tax').innerText = 'Rp ' + (total*0.1).toLocaleString();
+            document.getElementById('finalTotal').innerText = 'Rp ' + (total*1.1).toLocaleString();
             
-            const tax = totalPrice * 0.15; 
-            document.getElementById('summaryTax').innerText = 'Rp ' + tax.toLocaleString(undefined, {maximumFractionDigits: 0});
-            const totalBayar = totalPrice + tax;
-            document.getElementById('summaryTotal').innerText = 'Rp ' + totalBayar.toLocaleString(undefined, {maximumFractionDigits: 0});
-
             const btn = document.getElementById('btnCart');
-            if(totalItems > 0) { btn.classList.remove('disabled'); btn.style.background = "var(--primary)"; } 
-            else { btn.classList.add('disabled'); btn.style.background = "#ccc"; }
+            if(qty > 0) { btn.classList.remove('disabled'); btn.style.background = "var(--primary)"; } else { btn.classList.add('disabled'); btn.style.background = "#ccc"; }
         }
 
-        function openCart() {
-            if(document.getElementById('totalItems').innerText == '0') return;
-            document.getElementById('overlay').classList.add('active');
-            document.getElementById('cartSheet').classList.add('active');
-        }
-        function closeCart() {
-            document.getElementById('overlay').classList.remove('active');
-            document.getElementById('cartSheet').classList.remove('active');
-        }
-        function showToast(msg) {
-            const toast = document.getElementById('toastMsg');
-            document.getElementById('toastText').innerText = msg;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2000);
-        }
-        function callStaff() {
-            if(!currentTable) { showToast("Mohon Scan QR Code Meja"); return; }
-            showToast("Pelayan menuju Meja " + currentTable);
-        }
-        function submitOrder() {
-            if(!currentTable) { alert("Error: Mohon scan ulang QR Code meja."); return; }
-            const note = document.getElementById('orderNote').value;
-            closeCart();
-            setTimeout(() => {
-                alert(`ARIGATOU! Pesanan Meja ${currentTable} diterima.\n\nCatatan: ${note ? note : '-'}`);
-                cart = {}; updateCartUI(); document.getElementById('orderNote').value = '';
-            }, 500);
+        function openCart() { document.getElementById('overlay').style.display = 'block'; setTimeout(()=>document.getElementById('cartSheet').classList.add('show'), 10); }
+        function closeCart() { document.getElementById('cartSheet').classList.remove('show'); setTimeout(()=>document.getElementById('overlay').style.display = 'none', 300); }
+        function callStaff() { if(!table) return alert("Scan QR dulu!"); alert("Pelayan ke Meja " + table); }
+        function submit() {
+            if(!table) return alert("Scan QR dulu!");
+            alert(`Pesanan Meja ${table} Terkirim!\nCatatan: ${document.getElementById('note').value}`);
+            cart = {}; updateCart(); closeCart(); document.getElementById('note').value = '';
         }
     </script>
 </body>
