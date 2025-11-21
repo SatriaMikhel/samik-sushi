@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Samik Sushi - Digital Order</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        :root {
+            --primary: #D32F2F; /* Merah Samik */
+            --accent: #B71C1C;
+            --bg: #FAFAFA;
+            --surface: #FFFFFF;
+            --text-main: #2D2D2D;
+            --text-sec: #757575;
+            --border: #E0E0E0;
+            --success: #4CAF50;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--bg); color: var(--text-main); padding-bottom: 100px; }
+
+        /* --- HEADER --- */
+        header {
+            background: var(--surface);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .brand { display: flex; align-items: center; gap: 10px; }
+        .brand h1 { font-size: 1.2rem; font-weight: 700; color: var(--primary); letter-spacing: -0.5px; }
+        .brand span { font-size: 0.8rem; color: var(--text-sec); font-weight: 400; }
+        .table-badge {
+            background: var(--primary); color: white; padding: 5px 12px;
+            border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+        }
+
+        /* --- CATEGORIES --- */
+        .categories {
+            padding: 20px 0 5px 20px;
+            display: flex; gap: 12px; overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .categories::-webkit-scrollbar { display: none; }
+        
+        .cat-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--surface);
+            color: var(--text-sec);
+            font-size: 0.9rem; font-weight: 500;
+            white-space: nowrap; cursor: pointer; transition: 0.2s;
+        }
+        .cat-btn.active {
+            background: var(--primary); color: white; border-color: var(--primary);
+            box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);
+        }
+
+        /* --- MENU GRID --- */
+        .menu-grid { padding: 20px; display: grid; gap: 20px; }
+        
+        .menu-item {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 12px;
+            display: flex; gap: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border: 1px solid transparent;
+            transition: 0.2s;
+        }
+        
+        .menu-img {
+            width: 100px; height: 100px;
+            border-radius: 12px; object-fit: cover; background: #eee;
+        }
+        
+        .menu-details { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .menu-name { font-weight: 600; font-size: 1rem; line-height: 1.3; margin-bottom: 4px; }
+        .menu-desc { font-size: 0.75rem; color: var(--text-sec); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        
+        .menu-action { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+        .price { font-weight: 700; color: var(--text-main); }
+        
+        .add-btn {
+            background: var(--surface); border: 1px solid var(--border);
+            width: 32px; height: 32px; border-radius: 8px;
+            color: var(--primary); font-size: 1.2rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .add-btn:active { background: var(--primary); color: white; }
+
+        /* --- FLOATING CART --- */
+        .floating-bar {
+            position: fixed; bottom: 20px; left: 20px; right: 20px;
+            background: var(--text-main); color: white;
+            padding: 16px 24px; border-radius: 16px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            cursor: pointer; z-index: 900;
+            transform: translateY(150%); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .floating-bar.visible { transform: translateY(0); }
+        .cart-summary { display: flex; flex-direction: column; }
+        .cart-count { font-size: 0.75rem; opacity: 0.8; }
+        .cart-total { font-weight: 700; font-size: 1.1rem; }
+        .cart-action { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+
+        /* --- MODAL & OVERLAYS --- */
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 1000;
+            opacity: 0; pointer-events: none; transition: 0.3s;
+            backdrop-filter: blur(4px);
+        }
+        .overlay.active { opacity: 1; pointer-events: all; }
+
+        .modal-sheet {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: var(--surface);
+            border-radius: 24px 24px 0 0;
+            padding: 25px; z-index: 1001;
+            transform: translateY(100%); transition: 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+            max-height: 85vh; display: flex; flex-direction: column;
+        }
+        .modal-sheet.active { transform: translateY(0); }
+
+        /* Order List Styles */
+        .sheet-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .sheet-title { font-size: 1.2rem; font-weight: 700; }
+        .close-sheet { font-size: 1.5rem; color: var(--text-sec); cursor: pointer; }
+        
+        .order-scroll { overflow-y: auto; margin-bottom: 20px; padding-right: 5px; }
+        
+        .order-item { display: flex; justify-content: space-between; margin-bottom: 15px; }
+        .oi-left { display: flex; gap: 10px; }
+        .oi-qty { 
+            background: var(--bg); width: 24px; height: 24px; 
+            display: flex; align-items: center; justify-content: center; 
+            border-radius: 6px; font-size: 0.8rem; font-weight: 600; color: var(--primary);
+        }
+        .oi-price { font-weight: 600; }
+
+        /* Bill Summary */
+        .bill-summary { background: var(--bg); padding: 15px; border-radius: 12px; margin-bottom: 20px; }
+        .bill-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-sec); }
+        .bill-row.total { color: var(--text-main); font-weight: 700; font-size: 1.1rem; margin-top: 10px; border-top: 1px dashed var(--border); padding-top: 10px; }
+
+        /* Buttons */
+        .btn-primary {
+            width: 100%; padding: 16px; border: none; border-radius: 14px;
+            background: var(--primary); color: white; font-weight: 600; font-size: 1rem;
+            cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px;
+        }
+        .btn-primary:disabled { background: #ccc; }
+
+        /* --- SUCCESS STATE --- */
+        .success-container {
+            text-align: center; padding: 40px 20px;
+            display: none; flex-direction: column; align-items: center;
+        }
+        .success-icon {
+            width: 80px; height: 80px; background: #E8F5E9; color: #4CAF50;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 40px; margin-bottom: 20px;
+        }
+        .order-id { font-family: monospace; background: #eee; padding: 5px 10px; border-radius: 8px; margin: 10px 0; font-size: 1.1rem; font-weight: 700; letter-spacing: 1px; }
+        
+        /* Loader */
+        .loader {
+            border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top: 3px solid white;
+            width: 20px; height: 20px; animation: spin 1s linear infinite; display: none;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">
+            <i class="ph-fill ph-fish-simple" style="font-size: 24px; color: var(--primary);"></i>
+            <div>
+                <h1>SAMIK SUSHI</h1>
+                <span>Authentic Japanese</span>
+            </div>
+        </div>
+        <div class="table-badge">MEJA 08</div>
+    </header>
+
+    <div class="categories">
+        <button class="cat-btn active" onclick="filterMenu('all', this)">Semua</button>
+        <button class="cat-btn" onclick="filterMenu('sushi', this)">Sushi</button>
+        <button class="cat-btn" onclick="filterMenu('ramen', this)">Ramen</button>
+        <button class="cat-btn" onclick="filterMenu('drink', this)">Minuman</button>
+    </div>
+
+    <div class="menu-grid" id="menuGrid">
+        </div>
+
+    <div class="floating-bar" id="floatBar" onclick="openCart()">
+        <div class="cart-summary">
+            <span class="cart-count"><span id="countBadge">0</span> ITEM</span>
+            <span class="cart-total" id="floatTotal">Rp 0</span>
+        </div>
+        <div class="cart-action">
+            Lihat Pesanan <i class="ph-bold ph-arrow-right"></i>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+    <div class="modal-sheet" id="cartSheet">
+        
+        <div id="viewOrder">
+            <div class="sheet-header">
+                <div class="sheet-title">Detail Pesanan</div>
+                <i class="ph-bold ph-x close-sheet" onclick="closeCart()"></i>
+            </div>
+
+            <div class="order-scroll" id="orderList">
+                </div>
+
+            <div class="bill-summary">
+                <div class="bill-row">
+                    <span>Subtotal</span>
+                    <span id="billSubtotal">Rp 0</span>
+                </div>
+                <div class="bill-row">
+                    <span>Service Charge (5%)</span>
+                    <span id="billService">Rp 0</span>
+                </div>
+                <div class="bill-row">
+                    <span>PB1 (10%)</span>
+                    <span id="billTax">Rp 0</span>
+                </div>
+                <div class="bill-row total">
+                    <span>Total</span>
+                    <span id="billTotal" style="color: var(--primary);">Rp 0</span>
+                </div>
+            </div>
+
+            <button class="btn-primary" onclick="submitOrder()" id="btnSubmit">
+                <span id="btnText">Kirim ke Dapur</span>
+                <div class="loader" id="btnLoader"></div>
+            </button>
+        </div>
+
+        <div class="success-container" id="viewSuccess">
+            <div class="success-icon">
+                <i class="ph-fill ph-check"></i>
+            </div>
+            <h2>Pesanan Terkirim!</h2>
+            <p style="color: var(--text-sec); font-size: 0.9rem; margin-top: 5px;">Mohon tunggu, chef kami sedang menyiapkan hidangan Anda.</p>
+            
+            <div style="margin-top: 20px;">
+                <small>Order ID</small>
+                <div class="order-id">#SMK-8821</div>
+            </div>
+            
+            <p style="margin-top: 20px; font-size: 0.8rem; color: var(--text-sec);">Silakan bayar di kasir setelah makan.</p>
+            
+            <button class="btn-primary" style="margin-top: 30px; background: var(--text-main);" onclick="window.location.reload()">
+                Pesan Lagi / Tambah Menu
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        // --- DATABASE ---
+        const menu = [
+            { id: 1, name: "Salmon Mentai", cat: "sushi", price: 45000, desc: "Torched salmon with signature mentai sauce.", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=200&auto=format&fit=crop" },
+            { id: 2, name: "Ebi Furai Roll", cat: "sushi", price: 38000, desc: "Crunchy shrimp tempura roll topped with mayo.", img: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?q=80&w=200&auto=format&fit=crop" },
+            { id: 3, name: "Spicy Miso Ramen", cat: "ramen", price: 42000, desc: "Rich chicken broth with spicy miso paste.", img: "https://images.unsplash.com/photo-1557872943-16a5ac26437e?q=80&w=200&auto=format&fit=crop" },
+            { id: 4, name: "Chicken Katsu Curry", cat: "ramen", price: 40000, desc: "Japanese curry rice with crispy chicken katsu.", img: "https://images.unsplash.com/photo-1604626714604-2e22c475249d?q=80&w=200&auto=format&fit=crop" },
+            { id: 5, name: "Ocha (Refill)", cat: "drink", price: 12000, desc: "Authentic Japanese Green Tea (Cold/Hot).", img: "https://images.unsplash.com/photo-1625772452859-1c03d5bf1137?q=80&w=200&auto=format&fit=crop" },
+            { id: 6, name: "Lychee Yakult", cat: "drink", price: 22000, desc: "Fresh sweet lychee mixed with Yakult.", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=200&auto=format&fit=crop" }
+        ];
+
+        let cart = {};
+        const TAX_RATE = 0.10; // 10%
+        const SERVICE_RATE = 0.05; // 5%
+
+        // --- RENDER MENU ---
+        function renderMenu(filter = 'all') {
+            const grid = document.getElementById('menuGrid');
+            grid.innerHTML = '';
+            
+            menu.forEach(item => {
+                if(filter === 'all' || item.cat === filter) {
+                    const div = document.createElement('div');
+                    div.className = 'menu-item';
+                    div.innerHTML = `
+                        <img src="${item.img}" class="menu-img" alt="${item.name}">
+                        <div class="menu-details">
+                            <div>
+                                <div class="menu-name">${item.name}</div>
+                                <div class="menu-desc">${item.desc}</div>
+                            </div>
+                            <div class="menu-action">
+                                <div class="price">Rp ${item.price.toLocaleString('id-ID')}</div>
+                                <button class="add-btn" onclick="addToCart(${item.id})">
+                                    <i class="ph-bold ph-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(div);
+                }
+            });
+        }
+
+        function filterMenu(cat, btn) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderMenu(cat);
+        }
+
+        // --- CART LOGIC ---
+        function addToCart(id) {
+            if(!cart[id]) cart[id] = 0;
+            cart[id]++;
+            updateUI();
+        }
+
+        function updateUI() {
+            let count = 0;
+            let subtotal = 0;
+            
+            // Build Cart HTML & Calc
+            const list = document.getElementById('orderList');
+            list.innerHTML = '';
+            
+            for(let id in cart) {
+                const qty = cart[id];
+                if(qty > 0) {
+                    const item = menu.find(m => m.id == id);
+                    count += qty;
+                    subtotal += (item.price * qty);
+                    
+                    list.innerHTML += `
+                        <div class="order-item">
+                            <div class="oi-left">
+                                <div class="oi-qty">${qty}x</div>
+                                <div>
+                                    <div style="font-weight:600">${item.name}</div>
+                                    <div style="font-size:0.8rem; color:#777">@ Rp ${item.price.toLocaleString()}</div>
+                                </div>
+                            </div>
+                            <div class="oi-price">Rp ${(item.price * qty).toLocaleString()}</div>
+                        </div>
+                    `;
+                }
+            }
+
+            // Calc Tax & Service
+            const service = subtotal * SERVICE_RATE;
+            const tax = (subtotal + service) * TAX_RATE;
+            const total = subtotal + service + tax;
+
+            // Update Floating Bar
+            document.getElementById('countBadge').innerText = count;
+            document.getElementById('floatTotal').innerText = 'Rp ' + total.toLocaleString('id-ID');
+            
+            const floatBar = document.getElementById('floatBar');
+            if(count > 0) floatBar.classList.add('visible');
+            else floatBar.classList.remove('visible');
+
+            // Update Bill Summary
+            document.getElementById('billSubtotal').innerText = 'Rp ' + subtotal.toLocaleString();
+            document.getElementById('billService').innerText = 'Rp ' + service.toLocaleString();
+            document.getElementById('billTax').innerText = 'Rp ' + tax.toLocaleString();
+            document.getElementById('billTotal').innerText = 'Rp ' + total.toLocaleString();
+        }
+
+        // --- MODAL ACTIONS ---
+        function openCart() {
+            document.getElementById('overlay').classList.add('active');
+            document.getElementById('cartSheet').classList.add('active');
+        }
+
+        function closeCart() {
+            document.getElementById('overlay').classList.remove('active');
+            document.getElementById('cartSheet').classList.remove('active');
+        }
+
+        function submitOrder() {
+            const btn = document.getElementById('btnSubmit');
+            const txt = document.getElementById('btnText');
+            const loader = document.getElementById('btnLoader');
+
+            // Simulate API Call
+            btn.disabled = true;
+            txt.style.display = 'none';
+            loader.style.display = 'block';
+
+            setTimeout(() => {
+                // Success Logic
+                document.getElementById('viewOrder').style.display = 'none';
+                document.getElementById('viewSuccess').style.display = 'flex';
+                cart = {}; // Clear cart
+                document.getElementById('floatBar').classList.remove('visible');
+            }, 2000); // 2 seconds loading
+        }
+
+        // Init
+        renderMenu();
+    </script>
+</body>
+  </html>
+  
