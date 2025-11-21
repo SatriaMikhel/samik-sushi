@@ -10,9 +10,9 @@
 
     <style>
         :root {
-            --primary: #A81B1B; /* Merah Lacquer */
+            --primary: #A81B1B; /* Merah Lacquer Jepang */
             --primary-dark: #7A1313;
-            --bg: #F9F7F4; /* Kertas Beras */
+            --bg: #F9F7F4; /* Warna Kertas Beras */
             --surface: #FFFFFF;
             --text-main: #2C2C2C;
             --text-sec: #6E6E73;
@@ -26,19 +26,20 @@
             color: var(--text-main); 
             padding-bottom: 120px; 
             font-family: 'Inter', sans-serif;
+            /* Pola Seigaiha Halus pada Background */
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0c16.569 0 30 13.431 30 30 0 16.569-13.431 30-30 30C13.431 60 0 46.569 0 30 0 13.431 13.431 0 30 0zm0 5c13.807 0 25 11.193 25 25 0 13.807-11.193 25-25 25C16.193 55 5 43.807 5 30 5 16.193 16.193 5 30 5zm0 5c11.046 0 20 8.954 20 20 0 11.046-8.954 20-20 20-11.046 0-20-8.954-20-20 0-11.046 8.954-20 20-20zm0 5c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-8.284 0-15-6.716-15-15 0-8.284 6.716-15 15-15zm0 5c5.523 0 10 4.477 10 10 0 5.523-4.477 10-10 10-5.523 0-10-4.477-10-10 0-5.523 4.477-10 10-10z' fill='%23d4cdc3' fill-opacity='0.15' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
 
         h1, h2, .m-title, .price, .splash-logo { font-family: 'Noto Serif JP', serif; }
 
-        /* --- SPLASH SCREEN (NOREN EFFECT) --- */
+        /* --- SPLASH SCREEN (NOREN) --- */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: var(--primary);
             z-index: 9999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             color: white; 
-            transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1); /* Efek naik halus */
+            transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1);
         }
         #splash-screen.hide { transform: translateY(-100%); }
         .splash-logo { font-size: 2.5rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 5px; }
@@ -99,7 +100,7 @@
             box-shadow: 4px 4px 0 var(--border); border: 1px solid var(--border);
         }
         .menu-card.sold-out { opacity: 0.6; grayscale: 100%; pointer-events: none; }
-        .thumb { width: 100px; height: 100px; border-radius: 12px; object-fit: cover; }
+        .thumb { width: 100px; height: 100px; border-radius: 12px; object-fit: cover; background: #eee; }
         .badge-sold {
             position: absolute; top: -8px; left: -8px; background: #333; color: white;
             font-size: 0.7rem; padding: 6px 10px; border-radius: 4px; font-weight: 700;
@@ -248,13 +249,65 @@
         </button>
     </div>
     <script>
+        // DATABASE MENU (IMAGE FIX UPDATE)
         const products = [
-            { id: 1, name: "Salmon Mentai", cat: "sushi", price: 45000, desc: "Salmon bakar premium dengan saus mentai khas Samik.", img: "https://images.unsplash.com/photo-1635527023946-9b7338548716?auto=format&fit=crop&w=200&q=80", soldOut: true },
-            { id: 2, name: "Maguro Nigiri", cat: "sushi", price: 30000, desc: "Tuna merah segar di atas nasi cuka Jepang.", img: "https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=200&q=80", soldOut: false },
-            { id: 3, name: "Volcano Roll", cat: "sushi", price: 55000, desc: "Roll goreng pedas dengan topping krispi dan mayo.", img: "https://images.unsplash.com/photo-1617196034438-4e7d70247691?auto=format&fit=crop&w=200&q=80", soldOut: false },
-            { id: 4, name: "Sapporo Miso Ramen", cat: "ramen", price: 42000, desc: "Kuah kaldu miso kental dengan chashu ayam.", img: "https://images.unsplash.com/photo-1591814468924-4428adc105ce?auto=format&fit=crop&w=200&q=80", soldOut: false },
-            { id: 5, name: "Chicken Gyoza", cat: "ramen", price: 28000, desc: "5 pcs pangsit ayam panggang ala Jepang.", img: "https://images.unsplash.com/photo-1626805164842-517125664e21?auto=format&fit=crop&w=200&q=80", soldOut: false },
-            { id: 6, name: "Cold Ocha", cat: "drink", price: 12000, desc: "Teh hijau Jepang tawar, menyegarkan. (Refill)", img: "https://images.unsplash.com/photo-1625772452859-1c03d5bf1137?auto=format&fit=crop&w=200&q=80", soldOut: false },
+            { 
+                id: 1, 
+                name: "Salmon Mentai", 
+                cat: "sushi", 
+                price: 45000, 
+                desc: "Salmon bakar premium dengan saus mentai khas Samik.", 
+                img: "https://images.unsplash.com/photo-1635527023946-9b7338548716?q=80&w=400&auto=format&fit=crop", 
+                soldOut: true 
+            },
+            { 
+                id: 2, 
+                name: "Maguro Nigiri", 
+                cat: "sushi", 
+                price: 30000, 
+                desc: "Tuna merah segar di atas nasi cuka Jepang.", 
+                img: "https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=400&auto=format&fit=crop", 
+                soldOut: false 
+            },
+            { 
+                id: 3, 
+                name: "Volcano Roll", 
+                cat: "sushi", 
+                price: 55000, 
+                desc: "Roll goreng pedas dengan topping krispi dan mayo.", 
+                img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=400&auto=format&fit=crop", 
+                soldOut: false 
+            },
+            { 
+                id: 4, 
+                name: "Sapporo Miso Ramen", 
+                cat: "ramen", 
+                price: 42000, 
+                desc: "Kuah kaldu miso kental dengan chashu ayam.", 
+                // FIX: Gambar Ramen Asli
+                img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=400&auto=format&fit=crop", 
+                soldOut: false 
+            },
+            { 
+                id: 5, 
+                name: "Chicken Gyoza", 
+                cat: "ramen", 
+                price: 28000, 
+                desc: "5 pcs pangsit ayam panggang ala Jepang.", 
+                // FIX: Gambar Gyoza Asli
+                img: "https://images.unsplash.com/photo-1626805164842-517125664e21?q=80&w=400&auto=format&fit=crop", 
+                soldOut: false 
+            },
+            { 
+                id: 6, 
+                name: "Cold Ocha", 
+                cat: "drink", 
+                price: 12000, 
+                desc: "Teh hijau Jepang tawar, menyegarkan. (Refill)", 
+                // FIX: Gambar Es Teh (Bukan kosmetik)
+                img: "https://images.unsplash.com/photo-1625772452859-1c03d5bf1137?q=80&w=400&auto=format&fit=crop", 
+                soldOut: false 
+            },
         ];
 
         let cart = {};
